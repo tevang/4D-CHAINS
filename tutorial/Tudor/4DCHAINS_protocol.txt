@@ -1,0 +1,29 @@
+# COMPULSORY DIRECTIVES
+mcutoff=1.0,1.0,0.8,0.6,0.6
+zacutoff=-0.5,-1.0,-1.0,-0.5,-1.0
+zmcutoff=0.0,0.0,-1.0,0.0,-1.0
+first_length=6,6,6,6,6
+last_length=4,4,4,4,3
+doNHmapping=True
+doassign4DTOCSY=False
+doassign4DNOESY=False
+NHmap=
+4DTOCSY=Tudor_TOCSY.list
+4DNOESY=Tudor_NOESY.list
+4DTOCSY_assignedNH=
+4DTOCSY_assignedall=
+4DNOESY_assignedNH=
+fasta=Tudor.fasta
+HSQC=Tudor_HSQC.list
+
+# OPTIONAL DIRECTIVES
+user_4DTOCSY_assignedall=Tudor_TOCSY.list.curated
+rst_file=
+tolH=0.04
+rstart=
+tolC=0.4
+rst_from_prev_cycle=False,True,True,True,True
+doassignonly4DNOESY=False
+user_4DNOESY_assignedall=Tudor_NOESY.list.curated
+aa_file=
+con_file=
