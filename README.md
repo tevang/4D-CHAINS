@@ -1,7 +1,7 @@
 Brief Description
 =================
 
-4D-CHAINS is a software for fully automated protein backbone N-H and sidechain aliphatic C & H chemical shift assignment from 3 spectra: a 2D {N-H}-HSQC, a 4D TOCSY and
+4D-CHAINS is a software for fully automated protein backbone N-H and sidechain aliphatic C & H chemical shift assignment from 3 NMR spectra: a 2D {N-H}-HSQC, a 4D TOCSY and
 a 4D NOESY. 
 
 

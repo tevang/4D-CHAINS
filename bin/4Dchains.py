@@ -92,7 +92,7 @@ if args.EXHAUSTIVENESS == 1:
         "zmcutoff": ['0.0','0.0','-1.0','0.0','-1.0'],
         "zacutoff": ['-0.5','-1.0','-1.0','-0.5','-1.0'],
         "first_length": [6]*5,
-        "last_length":  [4]*5,
+        "last_length":  [4]*4 + [3],
         'poolconfile': [None]*5,
         'allconfile': [None]*5,
         'poolaafile': [None]*5,
