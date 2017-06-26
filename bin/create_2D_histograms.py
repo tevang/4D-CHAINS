@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 # 4D-CHAINS software is a property of Thomas Evangelidis and Konstantinos Tripsianes. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-# NC-ND 4.0). You are free to:
 # * Share - copy and redistribute the material in any medium or format.
 # * The licensor cannot revoke these freedoms as long as you follow the license terms.
@@ -10,7 +11,6 @@
 # To view a full copy of this license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.
 
 
-#!/usr/bin/env python2.7
 
 import sys, re, os, csv
 from operator import itemgetter
@@ -489,7 +489,6 @@ def save_all_shift_pairs(resname, raw_atomname_shift_dict, previous_resname, nex
         if Cname in atomname_shift_dict.keys() and Hname in atomname_shift_dict.keys():
             aa_CHpair_2Dhist_multidict[resname][Cname+"-"+Hname][0].append(round(float(atomname_shift_dict[Cname]), 4))
             aa_CHpair_2Dhist_multidict[resname][Cname+"-"+Hname][1].append(round(float(atomname_shift_dict[Hname]), 4))
-                #         equivalent_CH_pair = [CH for CH in CHpair_list if CH_pair!=CH][0]   # we know that len(CHpair_list)=2 and we need only the one
 
         elif resname in aa_alternativeAtomNames_dict.keys() and Cname in aa_alternativeAtomNames_dict[resname].keys() and Hname in aa_alternativeAtomNames_dict[resname][Cname]:
             for alt_Hname in aa_alternativeAtomNames_dict[resname][Cname][1:]:  # skip the first which is the conventional Hname
@@ -500,7 +499,6 @@ def save_all_shift_pairs(resname, raw_atomname_shift_dict, previous_resname, nex
                     saved_alternative_Hnames_list.append(conv_Hname)
                     aa_CHpair_2Dhist_multidict[resname][Cname+"-"+conv_Hname][0].append(round(float(atomname_shift_dict[Cname]), 4))
                     aa_CHpair_2Dhist_multidict[resname][Cname+"-"+conv_Hname][1].append(round(float(atomname_shift_dict[alt_Hname]), 4))
-                    #             equivalent_CH_pair = [CH for CH in CHpair_list if Cname+"-"+conv_Hname!=CH][0]   # we know that len(CHpair_list)=2 and we need only the one
                     break # it is uncessessary to check the rest of the alternative Hnames since we have already save one
     
     try:
@@ -835,5 +833,4 @@ for aa in aa_CHpair_2Dhist_multidict.keys():
 
 
 
-# awk 'BEGIN{x='$(head -1 $fname | awk '{print $1}')'}{if($1 != x){print ""; x=$1};print $0}' $fname > ${fname}_for_GNUPLOT
 #done

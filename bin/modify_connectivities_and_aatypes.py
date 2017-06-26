@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 # 4D-CHAINS software is a property of Thomas Evangelidis and Konstantinos Tripsianes. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-# NC-ND 4.0). You are free to:
 # * Share - copy and redistribute the material in any medium or format.
 # * The licensor cannot revoke these freedoms as long as you follow the license terms.
@@ -10,7 +11,6 @@
 # To view a full copy of this license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.
 
 
-#!/usr/bin/env python2.7
 
 import sys, re, os
 import numpy as np
@@ -375,7 +375,6 @@ else:
         try:
             for triplet in i_iminus1_complete_dict[i]:
                 if triplet[0] == iminus1:
-                    # don't remove all alternative predictions otherwise the probabilities that will be calculated will be wrong!
                     found_aatype = True
                     break
         except KeyError:    # CLEVER: add a new connection that is not present in the connectivities file
@@ -383,7 +382,6 @@ else:
                 print "MODIFYING CONFILE: Adding missing connectivity of ", i, " to ", (iminus1, 1, 1)
                 i_iminus1_complete_dict[i] = [(iminus1, 1, 1)] # set occupancy and TOCSY resonance number arbitrarily to 1 and 1
         
-        # if the connectivity does not exist, add it!
         if found_aatype == False and args.ADD_MISSING_CONNECTIVITIES:
             print "MODIFYING CONFILE: Adding missing connectivity of ", i, " to ", (iminus1, 1, 1)
             i_iminus1_complete_dict[i] = [(iminus1, 1, 1)] # set occupancy and TOCSY resonance number arbitrarily to 1 and 1
@@ -438,7 +436,6 @@ else:
             print "MODIFYING POOLAAFILE: Adding missing aa type prediction of ", Tindex, " to ", (aatype, 1.0)
             iaaindex_iminus1aaTypesProbPoolTupleList_dict[Tindex] = [(aatype, 1.0)]
             
-        # if the aatype prediction does not exist, add it!
         if found_aatype == False:
             print "MODIFYING POOLAAFILE: Adding missing aa type prediction of ", Tindex, " to ", (aatype, 1.0)
             iaaindex_iminus1aaTypesProbPoolTupleList_dict[Tindex] = [(aatype, 1.0)]    # se the probability arbitrarily to 10
@@ -447,14 +444,12 @@ else:
         try:
             for duplet in iaaindex_iminus1aaTypesProbTupleList_dict[Tindex]:
                 if duplet[0] == aatype:
-                    # don't remove all alternative predictions otherwise the probabilities that will be calculated will be wrong!
                     found_aatype = True
                     break
         except KeyError:    # CLEVER: add a new aa type prediction that is not present in the aa type predictions file
             print "MODIFYING AAFILE: Adding missing aa type prediction of ", Tindex, " to ", (aatype, 1.0)
             iaaindex_iminus1aaTypesProbTupleList_dict[Tindex] = [(aatype, 1.0)]
             
-        # if the aatype prediction does not exist, add it!
         if found_aatype == False:
             print "MODIFYING AAFILE: Adding missing aa type prediction of ", Tindex, " to ", (aatype, 1.0)
             iaaindex_iminus1aaTypesProbTupleList_dict[Tindex] = [(aatype, 1.0)]    # se the Probability arbitrarily to 10

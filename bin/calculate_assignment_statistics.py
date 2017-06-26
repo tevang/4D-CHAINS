@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 # 4D-CHAINS software is a property of Thomas Evangelidis and Konstantinos Tripsianes. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-# NC-ND 4.0). You are free to:
 # * Share - copy and redistribute the material in any medium or format.
 # * The licensor cannot revoke these freedoms as long as you follow the license terms.
@@ -10,7 +11,6 @@
 # To view a full copy of this license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.
 
 
-#!/usr/bin/env python2.7
 
 import sys, re, os
 import numpy as np
@@ -282,11 +282,6 @@ for ASSIGNMENT_FILE,template_sequence_file in zip(args.ASSIGNMENT_FILE, args.tem
     print "BACKBONE NITROGENS ASSIGNED:", str(num_of_assigned_N)+"/"+str(total_num_of_N), "("+str(100*float(num_of_assigned_N)/total_num_of_N)+" %)"
     
     
-    # # REDEFINITION OF of allowed_aa_atoms_dict, excluding CD2 from LEU and CG2 from VAL to avoid double counting !
-    #         print "There is no ", aa_type, " in the protein! Moving to next aa type."
-    #                 if resname != aa_type:
-    #         y_pos = np.arange(len([a for a in allowed_aa_atoms_dict[aa_type] if a=="H" or a[0] != "H"]))
-    #         plt.yticks(y_pos, [a for a in allowed_aa_atoms_dict[aa_type] if a=="H" or a[0] != "H"])
         
 
 print "\n\n############################# TOTAL STATISTICS ################################\n\n"

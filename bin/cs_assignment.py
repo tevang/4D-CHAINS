@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 # 4D-CHAINS software is a property of Thomas Evangelidis and Konstantinos Tripsianes. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-# NC-ND 4.0). You are free to:
 # * Share - copy and redistribute the material in any medium or format.
 # * The licensor cannot revoke these freedoms as long as you follow the license terms.
@@ -10,7 +11,6 @@
 # To view a full copy of this license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.
 
 
-#!/usr/bin/env python2.7
 
 import sys, re, os, math
 from operator import itemgetter
@@ -81,7 +81,6 @@ args.NOESY_fname = os.path.abspath(args.NOESY_fname)
 
 
 
-# It does not necessarily contain real residue names!
 protein_alignment_list, absolute_RIGmatches_alignment_list  = read_NHmap(args.ABSOLUTE_MATCHES_FILE)
 
 
@@ -311,7 +310,6 @@ for res_index, residue in enumerate(residue_list):
                     print "DEBUG entered condition 2!"
                     new_Hydrogen_name = aatype_carbon_methylHydrogens_multidict[aa_type][Carbon_name]
                     Hydrogen_name = new_Hydrogen_name
-                #    print "DEBUG entered condition 3!"
         if aa_type in aatype_carbon_methylHydrogens_multidict.keys() and Carbon_name in aatype_carbon_methylHydrogens_multidict[aa_type].keys() and (not aa_type in aa_CarbonListwithDegenerateH_dict.keys() or Carbon_name in aa_CarbonListwithDegenerateH_dict[aa_type]):
             print "DEBUG entered condition 4! aa_type = ", aa_type, "Carbon_name=", Carbon_name
             new_Hydrogen_name = aatype_carbon_methylHydrogens_multidict[aa_type][Carbon_name]

@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 # 4D-CHAINS software is a property of Thomas Evangelidis and Konstantinos Tripsianes. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-# NC-ND 4.0). You are free to:
 # * Share - copy and redistribute the material in any medium or format.
 # * The licensor cannot revoke these freedoms as long as you follow the license terms.
@@ -10,7 +11,6 @@
 # To view a full copy of this license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.
 
 
-#!/usr/bin/env python2.7
 
 import sys, re, os
 from operator import itemgetter
@@ -159,7 +159,6 @@ args.NOESY_fname = os.path.abspath(args.NOESY_fname)
 
 
 
-# It does not necessarily contain real residue names!
 protein_alignment_list, absolute_RIGmatches_alignment_list  = read_NHmap(args.ABSOLUTE_MATCHES_FILE)
 NA_indices = []
 if protein_alignment_list[0] == 'N/A' or absolute_RIGmatches_alignment_list[0] == 'N/A':
@@ -321,7 +320,6 @@ for aa_type  in ["ALA", "THR", "VAL", "ILE", "LEU"]:
 print "DEBUG: selected_revordered_residue_keys=", selected_revordered_residue_keys
 
 
-#     if revordered_residue_keys[i+1][1] != revordered_residue_keys[i][1]+1:
 
     
 
@@ -522,7 +520,6 @@ if args.user_TOCSY_fname and args.user_NOESY_fname:
             if len([a for a in proofread_clean_resid_assignments_dict[resid] if a[3] in Carbon_pair]) > 0: # AND if the methyl carbons have been assigned
                 Proton_pair = ["H"+C[1:] for C in Carbon_pair]   # protons of the equivalent Carbons
                 program_assignments_list = [assignment for assignment in proofread_clean_resid_assignments_dict[resid] if assignment[3] in Carbon_pair+Proton_pair]   # keep only the resonances assigned by the program to the equivalent methyl carbons and protons
-                # proof_read_equivalentCarbons(program_assignments_list, resid, user_VAL_LEU_NOESY_resid_assignments_dict, user_VAL_LEU_TOCSY_resid_assignments_dict, Carbon_pair)   # OBSOLETE!!! it doesn't matter if 1 or 2 of the peaks have been proof-read in iteration 1 & 2
                 proof_read_equivalentMethyls(program_assignments_list, resid, user_VAL_LEU_NOESY_resid_assignments_dict, user_VAL_LEU_TOCSY_resid_assignments_dict, Carbon_pair, Proton_pair)   # it doesn't matter if 1 or 2 of the peaks have been proof-read in iteration 1 & 2
         for assignment in proofread_clean_resid_assignments_dict[resid]:
             print "DEBUG ITERATION1: proof reading assignment=", assignment
@@ -858,7 +855,6 @@ if args.user_TOCSY_fname and args.user_NOESY_fname:
             if len([a for a in proofread_clean_resid_assignments_dict[resid] if a[3] in Carbon_pair]) > 0: # AND if the methyl carbons have been assigned
                 Proton_pair = ["H"+C[1:] for C in Carbon_pair]   # protons of the equivalent Carbons
                 program_assignments_list = [assignment for assignment in proofread_clean_resid_assignments_dict[resid] if assignment[3] in Carbon_pair+Proton_pair]   # keep only the resonances assigned by the program to the equivalent methyl carbons and protons
-                # proof_read_equivalentCarbons(program_assignments_list, resid, user_VAL_LEU_NOESY_resid_assignments_dict, user_VAL_LEU_TOCSY_resid_assignments_dict, Carbon_pair)   # OBSOLETE!!! it doesn't matter if 1 or 2 of the peaks have been proof-read in iteration 1 & 2
                 proof_read_equivalentMethyls(program_assignments_list, resid, user_VAL_LEU_NOESY_resid_assignments_dict, user_VAL_LEU_TOCSY_resid_assignments_dict,
                                              Carbon_pair, Proton_pair)   # it doesn't matter if 1 or 2 of the peaks have been proof-read in iteration 1 & 2
         for assignment in proofread_clean_resid_assignments_dict[resid]:
@@ -1169,7 +1165,6 @@ if args.user_TOCSY_fname and args.user_NOESY_fname:
             if len([a for a in proofread_clean_resid_assignments_dict[resid] if a[3] in Carbon_pair]) > 0: # AND if the methyl carbons have been assigned
                 Proton_pair = ["H"+C[1:] for C in Carbon_pair]   # protons of the equivalent Carbons
                 program_assignments_list = [assignment for assignment in proofread_clean_resid_assignments_dict[resid] if assignment[3] in Carbon_pair+Proton_pair]   # keep only the resonances assigned by the program to the equivalent methyl carbons and protons
-                # proof_read_equivalentCarbons(program_assignments_list, resid, user_VAL_LEU_NOESY_resid_assignments_dict, user_VAL_LEU_TOCSY_resid_assignments_dict, Carbon_pair)   # OBSOLETE!!! it doesn't matter if 1 or 2 of the peaks have been proof-read in iteration 1 & 2
                 proof_read_equivalentMethyls(program_assignments_list, resid, user_VAL_LEU_NOESY_resid_assignments_dict, user_VAL_LEU_TOCSY_resid_assignments_dict, Carbon_pair, Proton_pair)   # it doesn't matter if 1 or 2 of the peaks have been proof-read in iteration 1 & 2
             print "DEBUG ITERATION3: after proof_read_equivalentMethyls() proofread_clean_resid_assignments_dict[",resid,"]=", proofread_clean_resid_assignments_dict[resid]
         for assignment in proofread_clean_resid_assignments_dict[resid]:
@@ -1462,7 +1457,6 @@ if args.user_TOCSY_fname and args.user_NOESY_fname:
             if len([a for a in proofread_clean_resid_assignments_dict[resid] if a[3] in Carbon_pair]) > 0: # AND if the methyl carbons have been assigned
                 Proton_pair = ["H"+C[1:] for C in Carbon_pair]   # protons of the equivalent Carbons
                 program_assignments_list = [assignment for assignment in proofread_clean_resid_assignments_dict[resid] if assignment[3] in Carbon_pair+Proton_pair]   # keep only the resonances assigned by the program to the equivalent methyl carbons and protons
-                # proof_read_equivalentCarbons(program_assignments_list, resid, user_VAL_LEU_NOESY_resid_assignments_dict, user_VAL_LEU_TOCSY_resid_assignments_dict, Carbon_pair)   # OBSOLETE!!! it doesn't matter if 1 or 2 of the peaks have been proof-read in iteration 1 & 2
                 proof_read_equivalentMethyls(program_assignments_list, resid, user_VAL_LEU_NOESY_resid_assignments_dict, user_VAL_LEU_TOCSY_resid_assignments_dict, Carbon_pair, Proton_pair)   # it doesn't matter if 1 or 2 of the peaks have been proof-read in iteration 1 & 2
         for assignment in proofread_clean_resid_assignments_dict[resid]:
             if '<' in assignment[7]:    # if this assignment has been proofread, then skip it
@@ -1775,7 +1769,6 @@ if args.user_TOCSY_fname and args.user_NOESY_fname:
                 if len([a for a in proofread_clean_resid_assignments_dict[resid] if a[3] in Carbon_pair]) > 0: # AND if the methyl carbons have been assigned
                     Proton_pair = ["H"+C[1:] for C in Carbon_pair]   # protons of the equivalent Carbons
                     program_assignments_list = [assignment for assignment in proofread_clean_resid_assignments_dict[resid] if assignment[3] in Carbon_pair+Proton_pair]   # keep only the resonances assigned by the program to the equivalent methyl carbons and protons
-                    # proof_read_equivalentCarbons(program_assignments_list, resid, user_VAL_LEU_NOESY_resid_assignments_dict, user_VAL_LEU_TOCSY_resid_assignments_dict, Carbon_pair)   # OBSOLETE!!! it doesn't matter if 1 or 2 of the peaks have been proof-read in iteration 1 & 2
                     proof_read_equivalentMethyls(program_assignments_list, resid, user_VAL_LEU_NOESY_resid_assignments_dict, user_VAL_LEU_TOCSY_resid_assignments_dict, Carbon_pair, Proton_pair)   # it doesn't matter if 1 or 2 of the peaks have been proof-read in iteration 1 & 2
         for assignment in proofread_clean_resid_assignments_dict[resid]:
             if '<' in assignment[7]:    # if this assignment has been proofread, then skip it

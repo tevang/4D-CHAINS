@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 # 4D-CHAINS software is a property of Thomas Evangelidis and Konstantinos Tripsianes. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-# NC-ND 4.0). You are free to:
 # * Share - copy and redistribute the material in any medium or format.
 # * The licensor cannot revoke these freedoms as long as you follow the license terms.
@@ -10,7 +11,6 @@
 # To view a full copy of this license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.
 
 
-#!/usr/bin/env python2.7
 
 import sys, re, os, cPickle, traceback, shutil, bz2, math
 from scoop import futures, shared
@@ -37,6 +37,7 @@ from chain_formation import *
 from aa_prediction import *
 from peptides import *
 from global_func import *
+from open_func import *
 
 
 HOME_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -1141,7 +1142,6 @@ if __name__ == "__main__":
                     remaining_chainScore_list.append(chainScore)
             
             results = list(futures.map(build_Peptide_Tree, remaining_chainIndex_list, remaining_chainScore_list))   # build peptide tree from chain
-            # results will be empty!!
             
             progbar = ProgressBar(100)
             peptide_file_num = 0

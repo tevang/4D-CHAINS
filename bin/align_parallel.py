@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 # 4D-CHAINS software is a property of Thomas Evangelidis and Konstantinos Tripsianes. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-# NC-ND 4.0). You are free to:
 # * Share - copy and redistribute the material in any medium or format.
 # * The licensor cannot revoke these freedoms as long as you follow the license terms.
@@ -10,7 +11,6 @@
 # To view a full copy of this license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.
 
 
-#!/usr/bin/env python
 
 import sys, re, os, subprocess, multiprocessing, traceback, time, cPickle, shutil, bz2
 from operator import itemgetter
@@ -29,6 +29,7 @@ def tree(): # function to create multidimensional dictionaries
     return collections.defaultdict(tree)
 from global_func import *
 from alignment import *
+from open_func import *
 
 
 
@@ -90,8 +91,6 @@ if __name__ == "__main__":
     try:
         
         args = cmdlineparse()
-        #    print "ERROR: -wH must be a number greater than 0 and lower or equal to 1!"
-        #    print "ERROR: -wC must be a number greater than 0 and lower or equal to 1!"
         
         if not args.PROCESSED_ALIGNMENT_FILE:
             

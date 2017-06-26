@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 # 4D-CHAINS software is a property of Thomas Evangelidis and Konstantinos Tripsianes. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-# NC-ND 4.0). You are free to:
 # * Share - copy and redistribute the material in any medium or format.
 # * The licensor cannot revoke these freedoms as long as you follow the license terms.
@@ -10,7 +11,6 @@
 # To view a full copy of this license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.
 
 
-#!/usr/bin/env python2.7
 
 import sys, re, os, cPickle, traceback, shutil, bz2, math
 from scoop import futures, shared
@@ -197,7 +197,6 @@ for aa_type in aa_carbonBondedHydrogensDict_dict.keys():
 
 
 Prob_CS = tree()
-## ATENTION: "H" probabilies are wrong but are not used up to this version!
 Prob_CS["ALA"]["HA"] = 0.627588
 Prob_CS["ALA"]["HB"] = 0.485091
 Prob_CS["ALA"]["CA"] = 0.720575
@@ -777,7 +776,6 @@ def find_nonoverlapping_groups_in_root(remaining_root_contents, rtolH, rtolN, ke
             except (ValueError, IndexError):
                 continue
     
-    #            if root1_words_list[0][-3:] != "N-H":   # if it's not a backbone amide, skip it
     print "DEBUG: nonoverlapping_groups_lines_and_tolerances =", nonoverlapping_groups_lines_and_tolerances
     print "DEBUG: remaining_groups_lines = ", remaining_groups_lines
     return nonoverlapping_groups_lines_and_tolerances
@@ -873,7 +871,6 @@ def copy_aaindices_from_root_spectrum_2(root_contents, query_fname, spectrum_typ
                                                     query_contents[q_index] = " ".join([aa_index, query_words_list[1], query_words_list[2], query_words_list[3], query_words_list[4], query_words_list[5], "\n"])
                                                 else:
                                                     query_contents[q_index] = " ".join([aa_index, query_words_list[1], query_words_list[2], query_words_list[3], query_words_list[4], "\n"])
-                                            # ATTENTION: THIS IS NOT ENTIRELY CORRECT, BECAUSE THE N RESONANCE MAY BE CLOSER BUT THE H NOT!
                                             break
                                     except (ValueError, IndexError):
                                         continue
@@ -1080,8 +1077,6 @@ def build_Chain_Tree(i):
         for ancestor in leaf.get_ancestors():
             chain.append(ancestor.name)
             score *= ancestor.dist  # follow the chain rule for conditional probabilities to calculate the score (probability)
-        # ATTENTION: the Tree is pruned in the sense that only connectivites above the Z-score cutoff were used, otherwise the scores of all chains would sum to 1 !
-        # Therefore there is no need for normalization of chain scores!
         chain.append(score)
         all_chainScore_set.add(tuple(chain))
         del chain
@@ -1165,7 +1160,6 @@ def get_aatypes_from_H_C_resonpair_2Dhist(H_resonance, C_resonance, TOCSY_reson_
                 carbon_match = [match for match in carbon_matches_list if match[1]==C_name]
                 if len(carbon_match) == 0:  # if the hist(C) of this C_name was zero, don't save it 
                     continue
-                #print "DEBUG: len(carbon_match) is ", len(carbon_match)," and it should be 1 !"
                 weighted_average_probability = -1 * carbon_match[0][2] #  but first make it negative to distiguish it from weighted average probabilities
                 matches_list.append([aa, C_name, H_name, weighted_average_probability, TOCSY_reson_index, H_resonance, C_resonance, None]) 
             
@@ -1239,7 +1233,6 @@ def get_aatypes_from_H_C_resonpair(H_resonance, C_resonance, TOCSY_reson_index):
         H_name = quartet[2]
         if is_valid_hydrogen(aa_type, C_name, H_name, aa_carbonBondedHydrogensDict_dict[aa_type]) == False: # if this carbon is not covalently bonded to this hydrogen, skip it
             continue
-        #OBSOLETE # othewise we would keep 'CG2_HG2', 'CG1_HG1', 'CB_HB' for just one C-H resonance pair!
         valid_matches_list.append([aa_type, C_name, H_name, quartet[3], TOCSY_reson_index, H_resonance, C_resonance, None])  # add also the index of this H-C pair in the TOCSY group it
         previous_aatype = aa_type
     
@@ -1271,7 +1264,6 @@ def select_correct_H_C_resonpairs(aatypeResonpairMatchesTuple_list):
         C_resonance = match[6]
         for correct_match in correct_C_H_resonpair_matches_list:
             if C_name == correct_match[1] and approx_equal(C_resonance, correct_match[6], 0.3) == False:
-                #print "DEBUG: conflict found, do_carbons_match() returning False!"
                 return False
         
         return True # otherwise return true
@@ -1429,7 +1421,6 @@ def select_correct_H_C_resonpairs(aatypeResonpairMatchesTuple_list):
                     if x[7] == clustID and x[1] != CARBON_OF_THIS_CLUSTER:
                         aatypeResonpairMatchesTuple_list.remove(x)
     
-    # FINALLY TAKE CARE OF WHATEVER IS LEFT IN aatypeResonpairMatchesTuple_list. DON'T KNOW IF THIS PART IS NECESSARY ANY MORE!
     C_H_occupancy_dict = {} # dict with keys C_H pairs and values the number of TOCSY peaks of the currect group this C_H pair matched
     C_H_matches_dict = {}
     for C, H_list in aa_carbonBondedHydrogensDict_dict[aa_type].items():
@@ -1841,7 +1832,6 @@ def get_aatypes_from_all_H_C_resonpairs(raw_possible_aatype_prob_C_H_resonpair_T
                 selected_aatype_prob_C_H_resonpair_TOCSYindex_tuple_list.extend(new_aatype_prob_C_H_resonpair_TOCSYindex_tuple_list)
             else:
                 pass
-            #print "DEBUG: selected correct H-C resonpairs!"
             aatypeResonpairMatchesTuple_list = []
         
         aatypeResonpairMatchesTuple_list.append(group8)
@@ -1856,7 +1846,6 @@ def get_aatypes_from_all_H_C_resonpairs(raw_possible_aatype_prob_C_H_resonpair_T
             selected_aatype_prob_C_H_resonpair_TOCSYindex_tuple_list.extend(new_aatype_prob_C_H_resonpair_TOCSYindex_tuple_list)
         else:
             pass
-        #print "DEBUG: selected correct H-C resonpairs!"
     elif len(selected_aatype_prob_C_H_resonpair_TOCSYindex_tuple_list) == 0:
         possible_aatype_prob_C_H_resonpair_TOCSYindex_list_list = consider_only_Carbon_matches(raw_possible_aatype_prob_C_H_resonpair_TOCSYindex_list_list, False, False)
         possible_aatype_prob_C_H_resonpair_TOCSYindex_list_list.sort(key=itemgetter(0,1,2,3), reverse=True)  # sort by every column except the last 3
@@ -1876,7 +1865,6 @@ def get_aatypes_from_all_H_C_resonpairs(raw_possible_aatype_prob_C_H_resonpair_T
                     selected_aatype_prob_C_H_resonpair_TOCSYindex_tuple_list.extend(new_aatype_prob_C_H_resonpair_TOCSYindex_tuple_list)
                 else:
                     pass
-                #print "DEBUG: selected correct H-C resonpairs!"
                 aatypeResonpairMatchesTuple_list = []
             
             aatypeResonpairMatchesTuple_list.append(group8)
@@ -1890,7 +1878,6 @@ def get_aatypes_from_all_H_C_resonpairs(raw_possible_aatype_prob_C_H_resonpair_T
             selected_aatype_prob_C_H_resonpair_TOCSYindex_tuple_list.extend(new_aatype_prob_C_H_resonpair_TOCSYindex_tuple_list)
         else:
             pass
-        #print "DEBUG: selected correct H-C resonpairs!"
     
     aatype_occupancy_dict = {}  # dict with key the aa types and values how many times they were found during the H,C resonance analysis
     aatype_probsum_dict = {}    # dictionary with the aa type --> sum of probabilities of individual matched H,C resonance pairs
@@ -1927,7 +1914,6 @@ def get_aatypes_from_all_H_C_resonpairs(raw_possible_aatype_prob_C_H_resonpair_T
     matching_aaTypesProbTuple_list = []
     for AA_type in aa_type_set:
         if aatype_occupancy_dict[AA_type] > aatype_maxH_C_pairs_dict[AA_type]:    # if we found more C-H pairs than the maximum number for that aa type, ommit it
-            #print "DEBUG: ommiting AA_type=",AA_type,"due to higher occupancy (",aatype_occupancy_dict[AA_type],") than the maximum number of allowed C-H pairs (",aatype_maxH_C_pairs_dict[AA_type],")!"
             continue
         if (aatype_occupancy_dict[AA_type] >= (args.ASSIGNMENT_CUTOFF * Num_of_TOCSY_resonances)) and (aatype_maxH_C_pairs_dict[AA_type] >= Num_of_TOCSY_resonances):   
             try:
@@ -1941,7 +1927,6 @@ def get_aatypes_from_all_H_C_resonpairs(raw_possible_aatype_prob_C_H_resonpair_T
                         score = aatype_predictionScore_dict[AA_type]
                     else:
                         score = aatype_probsum_dict[AA_type]
-                # BAD! # score = float(aatype_maxH_C_pairs_dict[AA_type]) * aatype_probsum_dict[AA_type]/(aatype_occupancy_dict[AA_type]**2)
                 matching_aaTypesProbTuple_list.append( (AA_type, score) )
             except TypeError:
                 print aatype_probsum_dict[aa_type], Num_of_TOCSY_resonances
@@ -2012,7 +1997,6 @@ def get_aatypes_from_all_H_C_resonpairs(raw_possible_aatype_prob_C_H_resonpair_T
         matching_aaTypesProbTuple_list = []
         for AA_type in aa_type_set:
             if aatype_occupancy_dict[AA_type] > aatype_maxH_C_pairs_dict[AA_type]:    # if we found more C-H pairs than the maximum number for that aa type, ommit it
-                #print "DEBUG: ommiting AA_type=",AA_type,"due to higher occupancy (",aatype_occupancy_dict[AA_type],") than the maximum number of allowed C-H pairs (",aatype_maxH_C_pairs_dict[AA_type],")!"
                 continue
             if (aatype_occupancy_dict[AA_type] >= (args.ASSIGNMENT_CUTOFF * Num_of_TOCSY_resonances)) and (aatype_maxH_C_pairs_dict[AA_type] >= Num_of_TOCSY_resonances):   
                 try:
@@ -2026,7 +2010,6 @@ def get_aatypes_from_all_H_C_resonpairs(raw_possible_aatype_prob_C_H_resonpair_T
                             score = aatype_predictionScore_dict[AA_type]
                         else:
                             score = aatype_probsum_dict[AA_type]
-                    # BAD! # score = float(aatype_maxH_C_pairs_dict[AA_type]) * aatype_probsum_dict[AA_type]/(aatype_occupancy_dict[AA_type]**2)
                     matching_aaTypesProbTuple_list.append( (AA_type, score) )
                 except TypeError:
                     print aatype_probsum_dict[aa_type], Num_of_TOCSY_resonances
@@ -2972,7 +2955,6 @@ if __name__ == "__main__":
                 remaining_chainScore_list.append(chainScore)
         
         results = list(futures.map(build_Peptide_Tree, remaining_chainIndex_list, remaining_chainScore_list))   # build peptide tree from chain
-        # results will be empty!!
         
         progbar = ProgressBar(100)
         peptide_file_num = 0

@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 # 4D-CHAINS software is a property of Thomas Evangelidis and Konstantinos Tripsianes. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-# NC-ND 4.0). You are free to:
 # * Share - copy and redistribute the material in any medium or format.
 # * The licensor cannot revoke these freedoms as long as you follow the license terms.
@@ -10,7 +11,6 @@
 # To view a full copy of this license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.
 
 
-#!/usr/bin/env python2.7
 
 import sys, re, os, traceback, shutil, bz2, math, multiprocessing
 from scoop import futures, shared
@@ -40,21 +40,19 @@ def cmdlineparse():
     parser = ArgumentParser(description="""
 The script will create the following files in the work directory:
 
+<4DTOCSY>num.list:      the original 4D-TOCSY with N-H assignments
+<4DNOESY>num.list:      the original 4D-NOESY with N-H assignments
+<HSQC>num.list:         the original N-H-HSQC with the correct existing labels preserved and the other lines labeled as X1N-H, X2N-H, etc.
+4DCHAINS_NHmap:         the table with the N-H mapped to the protein sequence
+4DCHAINS_assigned_NH_HSQC.sparky:   the original N-H-HSQC with all the assignments made by 4D-CHAINS
+4DTOCSY_assignedall.xeasy:          the original 4D-TOCSY with all the assignments made by 4D-CHAINS, in xeasy format
+4DTOCSY_assignedall.sparky          the original 4D-TOCSY with all the assignments made by 4D-CHAINS, in sparky format
+4DNOESY_assignedall.sparky          the original 4D-NOESY with all the assignments made by 4D-CHAINS, in sparky format
+4DNOESY_assignedall.xeasy:          the original 4D-NOESY with all the assignments made by 4D-CHAINS, in xeasy format. If you have provided your own
+                                    assignments in the protocol file, then this file will be named 4DNOESY_assignedall.proofread.xeasy.
 
-
-tocsyNEWnum.list
-noesyNEWnum.list
-4DCHAINS_HSQC.list
-4DCHAINS_NHmap
-4DCHAINS_assigned_NH_HSQC.sparky
-4DTOCSY_assignedall.xeasy
-4DTOCSY_assignedall.sparky
-4DNOESY_assignedall.sparky
-4DNOESY_assignedall.proofread.xeasy
-
-
-only4DNOESY_assignedall.sparky
-only4DNOESY_assignedall.xeasy
+only4DNOESY_assignedall.sparky:     like 4DNOESY_assignedall.sparky, in case you did not provide a 4D-TOCSY file.
+only4DNOESY_assignedall.xeasy:      like 4DNOESY_assignedall.xeasy, in case you did not provide a 4D-TOCSY file.
 
 
                             """,
@@ -457,8 +455,9 @@ if directives['doNHmapping'] == True:
             directives['rstart'] = '1';
             ALLOW_PROOFREADING = False
     run_commandline(CHAINS_BIN_DIR+"/annotate_root.py -root " + directives['HSQC']+ " -rstart " + directives['rstart'] + " -tseq " \
-                    + directives['fasta'] + " -o " + directives['HSQC'] + "_annotated", logname="annotate_root.log")
-    directives['HSQC'] = directives['HSQC'] + "_annotated"
+                    + directives['fasta'] + " -o " + directives['HSQC'].replace(".list","").replace(".txt", "").replace(".dat", "").replace(".sparky", "")+"num.list",
+                    logname="annotate_root.log")
+    directives['HSQC'] = directives['HSQC'].replace(".list","").replace(".txt", "").replace(".dat", "").replace(".sparky", "")+"num.list"
     
     total_cycles = len(directives['mcutoff'])
     directives['rst_file'] = [None]*total_cycles
