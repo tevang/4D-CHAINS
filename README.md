@@ -62,7 +62,10 @@ Likewise, for nEIt:
 
 	4Dchains.py -protocol nEIt_protocol.txt
 
+At the end you will find several output files and a directory named 4DCHAINS_workdir, which containts all the intermediate files for backtracking. To see what
+these output files mean, do:
 
+4Dchains.py -h
 
 
 
