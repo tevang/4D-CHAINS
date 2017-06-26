@@ -1,4 +1,13 @@
-# License
+Brief Description
+=================
+
+4D-CHAINS is a software for fully automated protein backbone N-H and sidechain aliphatic C & H chemical shift assignment from 3 spectra: a 2D {N-H}-HSQC, a 4D TOCSY and
+a 4D NOESY. 
+
+
+License
+============
+
 4D-CHAINS software for protein NMR assignment is a property of Thomas Evangelidis and Konstantinos Tripsianes and is free for NON-COMMERCIAL USAGE. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY- NC-ND 4.0). You are free to:
 
 * Share - copy and redistribute the material in any medium or format.
