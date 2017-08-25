@@ -1,7 +1,7 @@
 Brief Description
 =================
 
-4D-CHAINS is a software for fully automated protein backbone N-H and sidechain aliphatic C & H chemical shift assignment from 3 NMR spectra: a 2D {N-H}-HSQC, a 4D TOCSY and
+4D-CHAINS is a software for fully automated protein backbone N-H and sidechain aliphatic C & H chemical shift assignment from 2 NMR spectra: a 4D TOCSY and
 a 4D NOESY. 
 
 
@@ -31,7 +31,7 @@ Installation
 
 Download the code (clone the repositoty) from github:
 
-	git clone https://github.com/tevang/4D-CHAINS.git
+    git clone https://github.com/tevang/4D-CHAINS.git
 
 Or to update an existing repository:
 	
