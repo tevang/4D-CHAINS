@@ -45,9 +45,10 @@ or if you need sudo priviledges to install new python packages:
 	
     sudo python setup.py install
 
-Place the bin/ folder in your PATH environment variable if you want to call 4D-CHAINS executables from every directory. E.g. place the following line in your .bashrc:
+Place the bin/ folder in your PATH and lib/ in your PYTHONPATH environment variable if you want to call 4D-CHAINS executables from every directory. E.g. place the following line in your .bashrc:
 	
     export PATH=<path to 4D-CHAINS/>/bin:$PATH
+    export PYTHONPATH=<path to 4D-CHAINS/>/lib:$PYTHONPATH
 
 To run 4D-CHAINS use the 4Dchains.py script. You can do all operations you wish with this script as long as you provide the appropriate protocol file. E.g.
 	
