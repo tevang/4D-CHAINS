@@ -1,14 +1,39 @@
+
+
 Brief Description
 =================
 
 4D-CHAINS is a software for fully automated protein backbone N-H and sidechain aliphatic C & H chemical shift assignment from 2 NMR spectra: a 4D TOCSY and
 a 4D NOESY. Read our paper in [Nature Communications](https://www.nature.com/articles/s41467-017-02592-z) for more details.
 
+<table style="border-collapse: collapse">
+<tr>
+<td style="vertical-align: top" valign="top">
+    <strong>Abstract from the paper</strong>
+    <p>Automated methods for NMR structure determination of proteins are continuously becoming more robust. However, current methods 
+    addressing larger, more complex targets rely on analyzing 6–10 complementary spectra, suggesting the need for alternative 
+    approaches. Here, we describe 4D-CHAINS/autoNOE-Rosetta, a complete pipeline for NOE-driven structure determination of medium- 
+    to larger-sized proteins. The 4D-CHAINS algorithm analyzes two 4D spectra recorded using a single, fully protonated protein 
+    sample in an iterative ansatz where common NOEs between different spin systems supplement conventional through-bond 
+    connectivities to establish assignments of sidechain and backbone resonances at high levels of completeness and with a minimum 
+    error rate. The 4D-CHAINS assignments are then used to guide automated assignment of long-range NOEs and structure refinement 
+    in autoNOE-Rosetta. Our results on four targets ranging in size from 15.5 to 27.3 kDa illustrate that the structures of proteins 
+    can be determined accurately and in an unsupervised manner in a matter of days.
+    <p>
+    <strong>Link to the paper</strong><br />
+    <a href="https://www.nature.com/articles/s41467-017-02592-z">Nat. Commun</a>
+    </p>
+</td><td width="300">
+<img src="images/network.png" width="300" /></img>
+</td>
+</tr>
+</table>
+
 
 License
 ============
 
-4D-CHAINS software for protein NMR assignment is a property of Thomas Evangelidis and Konstantinos Tripsianes and is free for NON-COMMERCIAL USAGE. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY- NC-ND 4.0). You are free to:
+4D-CHAINS software for protein NMR assignment is a property of **Thomas Evangelidis** and **Konstantinos Tripsianes** and is free for NON-COMMERCIAL USAGE. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY- NC-ND 4.0). You are free to:
 
 * Share - copy and redistribute the material in any medium or format.
 * The licensor cannot revoke these freedoms as long as you follow the license terms.
