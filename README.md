@@ -33,7 +33,7 @@ a 4D NOESY. Read our paper in [Nature Communications](https://www.nature.com/art
 License
 ============
 
-4D-CHAINS software for protein NMR assignment is a property of **Thomas Evangelidis** and **Konstantinos Tripsianes** and is free for NON-COMMERCIAL USAGE. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY- NC-ND 4.0). You are free to:
+4D-CHAINS software for protein NMR assignment is a property of Masaryk university and the authors are **Thomas Evangelidis** and **Konstantinos Tripsianes**. The code is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY- NC-ND 4.0). You are free to:
 
 * Share - copy and redistribute the material in any medium or format.
 * The licensor cannot revoke these freedoms as long as you follow the license terms.
