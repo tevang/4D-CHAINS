@@ -56,7 +56,7 @@ Installation
 
 ## Requirements:
 
-* For large proteins (>180 residues) it is recommended to have >16 GB RAM.
+* For large proteins (>180 residues) it is recommended to have >=32 GB RAM and >=64 GB SWAP memory.
 * Pyhon3.x: I recommend installing Anaconda Python Distribution from https://docs.continuum.io/anaconda/install 
   that is platform independent.
 
