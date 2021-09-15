@@ -71,7 +71,7 @@ Or to update an existing repository:
 
 Create a dedicated Python environment:
 
-    conda env create -f 4dchains.yml
+    conda env create -f 4dchains.yml 
 
 Activate the Python environment whenever you wish to run 4D-CHAINS:
 
@@ -163,7 +163,8 @@ To see what these output files mean, do:
 
     4Dchains.py -h
 
-The assignment of nEIt protein's peaks by 4D-CHAINS requires >16 GB RAM due to its large size. To launch it, do:
+The assignment of nEIt protein's peaks by 4D-CHAINS requires >=32 GB RAM  and >= 64 GB SWAP due to its large size. 
+To launch it, do:
 
 	4Dchains.py -p nEIt_protocol.txt
 
