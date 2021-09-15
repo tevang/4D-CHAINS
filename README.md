@@ -156,8 +156,7 @@ resonances are used to assist the assignment of 4D-TOCSY peaks to aliphatic carb
 from 4D-TOCSY are transferred to the respective 4D-NOESY peaks, and the rest of them are assigned *de novo*.
 At the end you will find several output files and a directory named `4DCHAINS_workdir`, which contains all the 
 intermediate files for error backtracking. The most important file is **4DNOESY_assignedall.proofread.xeasy**,
-which will be passed as the input *chemical shift file* to autNOE-Rosetta for pro-
-tein structure prediction, as described below.
+which will be passed as the input *chemical shift file* to autNOE-Rosetta for protein structure prediction.
 
 To see what these output files mean, do:
 
