@@ -117,7 +117,7 @@ elif args.EXHAUSTIVENESS == 2 and args.SIMPLE_CONNECTIVITIES:  # 10 cycles
         'allaafile': [None]*10,
         "rst_from_prev_cycle": [False] + [True]*9
     }
-elif args.EXHAUSTIVENESS == 3 and not args.SIMPLE_CONNECTIVITIES:
+elif args.EXHAUSTIVENESS == 3 and args.SIMPLE_CONNECTIVITIES:
     directives = {
         "mcutoff": ['1.0','1.0','1.0','0.8','0.8','0.6','0.6','0.6','0.6','0.5','0.5','0.5','0.5','1.0','1.0','1.0'],
         "zmcutoff": ['0']*4 + ['-1.0','0.0','0.0','-1.0','-1.0','0.0','0.0','-1.0','-1.0','0.0','0.0','0.0'],
