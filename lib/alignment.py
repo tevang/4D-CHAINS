@@ -1334,6 +1334,7 @@ def print_results_summary(template_sequence_alignment_string,
         # f.write(get_alignment_with_absolute_matches(consensus_sequence_alignments_set))
 
         # WRITE THE STATISTICS OF NH-MAPPING AT THE END OF THE FILE
+        save_pickle('proofread.pkl', full_headers, full_NHmappings)
         df = pd.DataFrame([full_headers, list(map(remove_NH_suffix, full_NHmappings))]) \
             .T.rename(columns={0: 'header', 1: 'AAIGsign'})
         df = df.join(df['AAIGsign'].str.extract('^([A-Z])([0-9]+)$') \
@@ -1344,7 +1345,7 @@ def print_results_summary(template_sequence_alignment_string,
         df.index = df.index.values - df[df['resid'] == 0].index[0]
         CORRECT = df[(df['header']==df['resname']) & (df.index==df['resid'])].shape[0]
         WRONG = df[(~df['AAIGsign'].isin(['N/A', '-'])) & ((df['header']!=df['resname']) | (df.index!=df['resid']))].shape[0]
-        wrong_AIIGsign_list = df[(~df['AAIGsign'].isin(['N/A', '-'])) & ((df['header']!=df['resname']) | (df.index!=df['resid']))].values.tolist()
+        wrong_AIIGsign_list = df.loc[(~df['AAIGsign'].isin(['N/A', '-'])) & ((df['header']!=df['resname']) | (df.index!=df['resid'])), 'AAIGsign'].values.tolist()
         UNASSIGNED = df[df['AAIGsign'].isin(['N/A', '-'])].shape[0]
         f.write("\n\n\nSTATISTICS:\n\n")
         f.write("CORRECT = " + str(CORRECT) + "\n")
