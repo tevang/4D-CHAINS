@@ -262,10 +262,9 @@ if args.BIG_CHAIN_CUTOFF:   # KEEP ONLY CONNECTIVITIES THAT FORM CHAINS OF LENGT
     
     Tindices2keep_set = set()    # a list of lists containing the possible connectivities and the overall score as the last element
     
-    def build_Tree(i):
-        global Tindices2keep_set
-        
-        def populate_leaves(Assignment_Tree):
+    def build_Tree(i, Tindices2keep_set):
+
+        def populate_leaves(Assignment_Tree, i_iminus1_pool_dict):
             """
                 FUNCTION that adds new branches to the leaves of the Tree.
                 ARGUMENTS:
@@ -274,8 +273,6 @@ if args.BIG_CHAIN_CUTOFF:   # KEEP ONLY CONNECTIVITIES THAT FORM CHAINS OF LENGT
                 (Assignment_Tree, BOOLEAN):    A tuple with elements the input Tree structure with new branches (if applicable), and a BOOLEAN value which is True if the function added
                                                new leaves to the Tree, or False otherwise
             """
-            
-            global i_iminus1_pool_dict
             number_of_new_leaves = 0
             # ATTENTION: never use Assignment_Tree.iter_leaf_names(), it doesn't return the names in the order
             # ATTENTION: corresponding to Assignment_Tree.get_leaves()!!!
@@ -316,7 +313,7 @@ if args.BIG_CHAIN_CUTOFF:   # KEEP ONLY CONNECTIVITIES THAT FORM CHAINS OF LENGT
         while expand_tree:
             sys.stdout.write(str(level)+" ")
             sys.stdout.flush()
-            expand_tree = populate_leaves(Assignment_Tree)
+            expand_tree = populate_leaves(Assignment_Tree, i_iminus1_pool_dict)
             level += 1
             if level == args.BIG_CHAIN_CUTOFF:
                 break
@@ -350,7 +347,7 @@ if args.BIG_CHAIN_CUTOFF:   # KEEP ONLY CONNECTIVITIES THAT FORM CHAINS OF LENGT
     index = 1
     for i in list(i_iminus1_pool_dict.keys()):
         print("Building Tree starting from amino acid index",i,"("+str(index)+"/"+str(N)+") ...")
-        build_Tree(i=i)
+        build_Tree(i, Tindices2keep_set)
         index += 1
     
     
@@ -493,7 +490,8 @@ else:
         wrong_iminus1 = i_iminus1_pool_dict[i][0][0]
         for TAAIG, connectivities_list in list(i_iminus1_complete_dict.items()):
             for triplet in connectivities_list:
-                if wrong_iminus1 in triplet and triplet not in i_iminus1_pool_dict[TAAIG]:
+                if wrong_iminus1 in triplet and (TAAIG not in i_iminus1_pool_dict.keys() or
+                                                 triplet not in i_iminus1_pool_dict[TAAIG]):
                     i_iminus1_pool_dict[TAAIG].append(triplet) # add the wrong TAAIG(i-1) to every position that existed before filtering
         # AT THE END READ BACK THE ORIGINAL CONNECTIVITIES FOR A PARTICULAR TAAIG(i)
         i_iminus1_pool_dict[i] = i_iminus1_complete_dict[i]
@@ -633,6 +631,7 @@ else:
                     break
             if self_correct == True:
                 print("SELF-CORRECTION: found possible mistake in connectivities. Reading to the pools all possible connectivities and aa type predictions of ",i)
+                save_pickle('modify_conn.pkl', i, i_iminus1_pool_dict, i_iminus1_complete_dict)
                 add_back_TAAIG_to_i_iminus1_pool_dict(i, i_iminus1_pool_dict, i_iminus1_complete_dict)
         elif len(iAAIG_iminus1aaTypesProbPoolTupleList_dict[i]) == 1 and len(iAAIG_iminus1aaTypesProbTupleList_dict[i]) > 1 and not i in absolute_AAIGmatches_alignment_list:
             print("SELF-CORRECTION: found possible mistake in aa type predictions. Reading to the pools all possible connectivities and aa type predictions of ",i)

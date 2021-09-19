@@ -190,7 +190,7 @@ class Connectivities(object):
         :param CON_FILE:
         :return:
         """
-        AAIG_connectivities_dict = {}
+        AAIG_connectivities_dict = defaultdict(list)
         with open(CON_FILE, 'r') as f:
             for line in f:
                 m = re.search("^([A-Za-z0-9]+N[DE12X]*H[DE12X]*)\s+(\(.*)$", line)

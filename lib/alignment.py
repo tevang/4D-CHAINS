@@ -169,9 +169,11 @@ class Alignment():
         connectivities_alignment[0] = 'N/A'
 
         # CALCULATE NH-MAPPING STATISTICS
-        CORRECT, WRONG, COVERAGE = 0, 0, 0
+        print("protein_alignment_list=", protein_alignment_list)
+        print("new_absolute_AAIGmatches_alignment_list=", new_absolute_AAIGmatches_alignment_list)
+        CORRECT, WRONG, UNASSIGNED = 0, 0, 0
         wrong_AAIG_list = []
-        for position in range(1, len(protein_alignment_list)-1):
+        for position in range(1, len(protein_alignment_list)):
             aa_type = protein_alignment_list[position]
             pred_aa_type = new_absolute_AAIGmatches_alignment_list[position][0]
             if pred_aa_type != '-':
@@ -180,9 +182,10 @@ class Alignment():
                 else:
                     WRONG += 1
                     wrong_AAIG_list.append(new_absolute_AAIGmatches_alignment_list[position])
-                COVERAGE += 1
-        COVERAGE = 100.0*COVERAGE/len(protein_alignment_list)
-
+            elif pred_aa_type == '-' and aa_type != 'P':
+                UNASSIGNED += 1
+        SEQ_COVERAGE = 100.0*(CORRECT+WRONG)/len([aa for aa in protein_alignment_list if aa != 'N/A'])
+        METHOD_COVERAGE = 100.0*(CORRECT+WRONG)/len([aa for aa in protein_alignment_list if aa not in ['P', 'N/A']])
 
         with open(outfname, 'w') as f:
             f.write("\n\n\nABSOLUTE MATCHES WITH CHAIN LINKERS:\n\n\n" + "\n")
@@ -207,12 +210,16 @@ class Alignment():
                     "\n")  # convert the \n to the same format (binary), too.
             # WRITE THE STATISTICS OF NH-MAPPING AT THE END OF THE FILE
             f.write("\n\n\nSTATISTICS:\n\n")
-            print("COVERAGE = " + str(COVERAGE) + " %")
-            f.write("COVERAGE = " + str(COVERAGE) + " %\n")
+            print("SEQUENCE COVERAGE = %.3f %%\n" % SEQ_COVERAGE)
+            f.write("SEQUENCE COVERAGE = %.3f %%\n" % SEQ_COVERAGE)
+            print("METHOD COVERAGE = %.3f %%\n" % METHOD_COVERAGE)
+            f.write("METHOD COVERAGE = %.3f %%\n" % METHOD_COVERAGE)
             print("CORRECT = " + str(CORRECT))
             f.write("CORRECT = " + str(CORRECT) + "\n")
             print("WRONG = " + str(WRONG) + " (" + ", ".join(wrong_AAIG_list) + ")")
             f.write("WRONG = " + str(WRONG) + " (" + ", ".join(wrong_AAIG_list) + ")\n")
+            print("UNASSIGNED = %i\n" % UNASSIGNED)
+            f.write("UNASSIGNED = %i\n" % UNASSIGNED)
 
 def get_alignments_with_unique_AAIG(consensus_overlappingChains_alignment_list, max_peptide_length):
     """
