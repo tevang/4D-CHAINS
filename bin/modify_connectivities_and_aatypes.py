@@ -26,7 +26,7 @@ from ete3 import Tree
 from lib.alignment import Alignment
 from lib.bayes.statistics import Probability
 from lib.connectivities import Connectivities
-from lib.global_func import Debuginfo
+from lib.global_func import Debuginfo, save_pickle
 from scipy.stats import zscore
 
 code3 = ["ALA", "ARG", "ASN", "ASP", "CYS", "GLU", "GLN", "GLY", "HIS", "ILE", "LEU", "LYS", "MET", "PHE", "PRO", "SER", "THR", "TRP", "TYR", "VAL"]
@@ -435,8 +435,8 @@ else:
     #########################################################################
     
     Nindices_with_connectivities_list = []
-    def modify_i_iminus1_pool_dict(i, iminus1):
-        global i_iminus1_pool_dict, i_iminus1_complete_dict, Nindices_with_connectivities_list
+    def modify_i_iminus1_pool_dict(i, iminus1, i_iminus1_pool_dict,
+                                   i_iminus1_complete_dict, Nindices_with_connectivities_list):
         
         Nindices_with_connectivities_list.append(iminus1)   # keep record of the added Nindices
         ## MODIFY i_iminus1_pool_dict
@@ -484,13 +484,11 @@ else:
             print("MODIFYING CONFILE: Adding missing connectivity of ", i, " to ", (iminus1, 1, 1))
             i_iminus1_complete_dict[i] = [(iminus1, 1, 1)] # set occupancy and TOCSY resonance number arbitrarily to 1 and 1
         
-    def add_back_TAAIG_to_i_iminus1_pool_dict(i):
+    def add_back_TAAIG_to_i_iminus1_pool_dict(i, i_iminus1_pool_dict, i_iminus1_complete_dict):
         """
             FUNCTION to read back the original connectivities for a particular TAAIG(i), but also to place back the wrong TAAIG(i-1) to all other positions that was in the
             original connectivities file.
         """
-        global i_iminus1_pool_dict, i_iminus1_complete_dict
-        
         # PLACE BACK THE WRONG TAAIG(i-1)
         wrong_iminus1 = i_iminus1_pool_dict[i][0][0]
         for TAAIG, connectivities_list in list(i_iminus1_complete_dict.items()):
@@ -502,12 +500,11 @@ else:
         iAAIG_iminus1aaTypesProbPoolTupleList_dict[i] = iAAIG_iminus1aaTypesProbTupleList_dict[i]
     
     
-    def remove_iminus1_from_other_positions(i, iminus1):
+    def remove_iminus1_from_other_positions(i, iminus1, i_iminus1_pool_dict):
         """
             FUNCTION to remove iminus1 from connectivities others that i's
         """
-        global i_iminus1_pool_dict
-        
+
         i_list = list(i_iminus1_pool_dict.keys())
         try:
             i_list.remove(i)
@@ -521,8 +518,8 @@ else:
             i_iminus1_pool_dict[other_i] = new_triplet_list
     
     
-    def modify_iAAIG_iminus1aaTypesProbPoolTupleList_dict(TAAIG, aatype):
-        global iAAIG_iminus1aaTypesProbPoolTupleList_dict, iAAIG_iminus1aaTypesProbTupleList_dict
+    def modify_iAAIG_iminus1aaTypesProbPoolTupleList_dict(TAAIG, aatype, iAAIG_iminus1aaTypesProbPoolTupleList_dict,
+                                                          iAAIG_iminus1aaTypesProbTupleList_dict):
         
         found_aatype = False
         try:
@@ -581,7 +578,10 @@ else:
         while index >=0:
             i = chain[index+1]
             iminus1 = chain[index]
-            modify_i_iminus1_pool_dict(i, iminus1)   # keep only iminus1 TOCSY index as value
+            modify_i_iminus1_pool_dict(i, iminus1,
+                                       i_iminus1_pool_dict,
+                                       i_iminus1_complete_dict,
+                                       Nindices_with_connectivities_list)   # keep only iminus1 TOCSY index as value
             index -= 1
     ## FINALY MODIFY THE CONNECTIVITY if resid 2->resid 1, and clean resid 1 from every other position in the pool
     if absolute_AAIGmatches_alignment_list[1] != '-':
@@ -593,7 +593,7 @@ else:
         while index >=0:
             i = chain[index+1]
             iminus1 = chain[index]
-            remove_iminus1_from_other_positions(i, iminus1)
+            remove_iminus1_from_other_positions(i, iminus1, i_iminus1_pool_dict)
             index -= 1
     
     #print "DEBUG: after i_iminus1_pool_dict['R435']=", i_iminus1_pool_dict['R435']
@@ -612,7 +612,9 @@ else:
         if TAAIG != '-':
             chain.append(TAAIG)
             aatype = protein_alignment_list[position-1]
-            modify_iAAIG_iminus1aaTypesProbPoolTupleList_dict(TAAIG, aa1to3_dict[aatype])
+            modify_iAAIG_iminus1aaTypesProbPoolTupleList_dict(TAAIG, aa1to3_dict[aatype],
+                                                              iAAIG_iminus1aaTypesProbPoolTupleList_dict,
+                                                              iAAIG_iminus1aaTypesProbTupleList_dict)
     
     # SELF-CORRECT PREVIOUS WRONG CONSENSUS ABSOLUTE MATCHES
     #print "DEBUG: i_iminus1_pool_dict=", i_iminus1_pool_dict
@@ -631,7 +633,7 @@ else:
                     break
             if self_correct == True:
                 print("SELF-CORRECTION: found possible mistake in connectivities. Reading to the pools all possible connectivities and aa type predictions of ",i)
-                add_back_TAAIG_to_i_iminus1_pool_dict(i)
+                add_back_TAAIG_to_i_iminus1_pool_dict(i, i_iminus1_pool_dict, i_iminus1_complete_dict)
         elif len(iAAIG_iminus1aaTypesProbPoolTupleList_dict[i]) == 1 and len(iAAIG_iminus1aaTypesProbTupleList_dict[i]) > 1 and not i in absolute_AAIGmatches_alignment_list:
             print("SELF-CORRECTION: found possible mistake in aa type predictions. Reading to the pools all possible connectivities and aa type predictions of ",i)
             i_iminus1_pool_dict[i] = i_iminus1_complete_dict[i]
@@ -692,7 +694,7 @@ with open(args.COMPLETE_AA_TYPES_FILE+".mod", 'w') as f:
           #".wH"+str(args.H_weight)+".wC"+str(args.C_weight)+".tolH"+str(args.tolH)+".tolC"+str(args.tolC)+".rtolH"+str(args.rtolH)+".rtolN"+str(args.rtolN), 'w') as f:
 outfile = args.POOL_AA_TYPES_FILE+".mod"
 if args.POOL_AA_TYPES_FILE == args.COMPLETE_AA_TYPES_FILE:
-    outfile = args.POOL_AA_TYPES_FILE+".pool.mod"   # avoid ovewriting the complete aa types file
+    outfile = args.POOL_AA_TYPES_FILE+".pool.mod"   # avoid overwriting the complete aa types file
 with open(outfile, 'w') as f:
     f.write("i AAIG\tpossible i-1 aa types\n")
     #print "Z-scores:"

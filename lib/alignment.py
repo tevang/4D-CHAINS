@@ -1334,7 +1334,6 @@ def print_results_summary(template_sequence_alignment_string,
         # f.write(get_alignment_with_absolute_matches(consensus_sequence_alignments_set))
 
         # WRITE THE STATISTICS OF NH-MAPPING AT THE END OF THE FILE
-        save_pickle('proofread.pkl', full_headers, full_NHmappings)
         df = pd.DataFrame([full_headers, list(map(remove_NH_suffix, full_NHmappings))]) \
             .T.rename(columns={0: 'header', 1: 'AAIGsign'})
         df = df.join(df['AAIGsign'].str.extract('^([A-Z])([0-9]+)$') \
