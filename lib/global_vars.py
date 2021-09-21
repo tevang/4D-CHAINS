@@ -21,6 +21,7 @@ code1 = ["A", "R", "N", "D", "C", "E", "Q", "G", "H", "I", "L", "K", "M", "F", "
 aa1to3_dict = dict((c1,c3) for c1,c3 in zip(code1,code3))
 aa3to1_dict = dict((c3,c1) for c3,c1 in zip(code3,code1))
 
+# Excluding the aromatic C-H
 allowed_aa_atoms_dict = {
 "ALA" : ["HA", "HB", "CA", "CB", "N", "H"],
 "ARG" : ["HA", "HB2", "HB3", "HG2", "HG3", "HD2", "HD3", "CA", "CB", "CG", "CD", "N", "H"],

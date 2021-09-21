@@ -51,6 +51,30 @@ Under the following terms:
 To view a full copy of this license, visit [this page](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode).
 
 
+SOME STATISTICS
+============
+
+Below is reported the success rate of automatic chemical shift assignment by 4D-CHAINS in our set of 12 proteins. 
+Manual assignment was first conducted, and then comparison with 4D-CHAINS automatic assignment using the 
+4D HC(CC-TOCSY(CO))NH and 4D HMQC-NOESY-HSQC (HCNH) spectra. 4D-CHAINS was able to assign in average
+95.5% of the peaks to the correct atom type, namely with less than 5% error rate.
+
+| Protein       | CORRECT ASSIGNMENTS |
+| ------------- |:-------------:|
+|  3NIK    | 97.635 % |
+|  aLP    | 93.935 % |
+|  CHAP    | 96.706 % |
+|  EH11    | 93.534 % |
+|  EH12    | 96.388 % |
+|  FD3A    | 96.524 % |
+|  hIL9    | 95.172 % |
+|  MS6282    | 97.192 % |
+|  Nab3    | 92.932 % |
+|  nEIt    | 95.458 % |
+|  RTT    | 92.475 % |
+|  TUDOR    | 97.119 % |
+
+
 Installation
 ============
 
