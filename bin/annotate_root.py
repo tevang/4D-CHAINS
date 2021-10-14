@@ -47,7 +47,7 @@ annotate_root.py -hsqc nEIt_HSQC.list -rstart 1 -fasta nEIt.fasta -o nEIt_HSQCnu
                         help="teplate sequence file in fasta format", metavar="<template sequence file>")
     parser.add_argument("-o", dest="OUT_fname", required=False, type=str,
                         help="output file name (annotated {N-H}-HSQC).", metavar="<output file>")
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.0')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.2')
     args=parser.parse_args()
     return args
 

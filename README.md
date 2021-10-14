@@ -124,7 +124,10 @@ Tutorials
 ============
 
 You can find tutorials for TUDOR (60 residues) and nEIt (248 residues) proteins under the `tutorials/` directory. 
-In each folder you will find a protocol file and all the required input files. 
+In each folder you will find a protocol file and all the required input files. There is also the 
+`correct_output_files/` folder, which contains the output files you should get if you run successfully the tutorial.
+Just note that you might find out that the shifts of some equivalent protons (e.g. VAL QG1, QG2) are swapped, which is
+absolutely fine.
 Below are the contents of the protocol file: 
 
 

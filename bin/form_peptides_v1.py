@@ -136,7 +136,7 @@ def cmdlineparse():
     parser.add_argument("-delpred", dest="DELETE_AA_TYPE_PREDICTIONS", required=False, action='store_true', default=False,
                         help="delete aa type predictions with probabilities which are 1000, 10000 or 100000 times lower than the highest, if \
                              the highest is >10e-10, >10e-20, <=10e-20, respectively. (default %(default)s)")
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.0')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.2')
     args=parser.parse_args()
     return args
 

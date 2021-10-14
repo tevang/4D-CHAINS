@@ -34,7 +34,7 @@ def cmdlineparse():
     parser.add_argument("-noesy", dest="NOESY_FILE", required=False, help="optionally the 4D NOESY file in case the -patch argument was used when running chain_linker.py", metavar="<4D NOESY input file>")
     parser.add_argument("-wH", dest="H_weight", required=False, type=float, default=0.1, help="weight in (0.0-1.0] to apply on aa type prediction from aliphatic H resonances (default: 0.1)", metavar="<H weight>")
     parser.add_argument("-wC", dest="C_weight", required=False, type=float, default=1.0, help="weight in (0.0, 1.0] to apply on aa type prediction from aliphatic C resonances (default: 1.0)", metavar="<C weight>")
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 0.9')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.2')
     parser.add_argument("-probprod", dest="PROB_PRODUCT", required=False, action='store_true', default=False,
                         help="select the best C-H type assignment combination based on the product of probabilities of the individual C-H assignments")
     parser.add_argument("-probmode", dest="CONSENSUS_CGROUP_PROB_MODE", required=False, default=4, type=int,

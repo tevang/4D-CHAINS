@@ -78,7 +78,7 @@ EXAMPLES:
     parser.add_argument("-simple_conn", dest="SIMPLE_CONNECTIVITIES", required=False, action='store_true', default=False,
                         help="Use simple connectivities based on chemical shift tolerances, like in 4D-CHAINS v1.0. The "
                              "default is to use the 2D-histogram connectivities (4D-CHAINS v1.2).")
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.0')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.2')
     args=parser.parse_args()
     return args
 

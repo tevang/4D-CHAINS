@@ -96,7 +96,7 @@ def cmdlineparse():
                        help="keep only the connectivities of a TOCSY index group with the highest occupancy or those that differ from the maximum \
                             by -maxocc number (recommended: 0). (default: %(default)s)",
                        metavar="<maximum occupancy tolerance>")
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 0.8')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.2')
     args=parser.parse_args()
     return args
 

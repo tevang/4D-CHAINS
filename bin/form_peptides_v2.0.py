@@ -165,7 +165,7 @@ def cmdlineparse():
     parser.add_argument("-classifier", dest="CLASSIFIER_FILE", required=True, default=None, type=str,
                         help="path to the AA-type Classifier.",
                         metavar="<path to classifier>")
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.0')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.2')
     args = parser.parse_args()
     return args
 

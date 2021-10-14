@@ -103,7 +103,7 @@ EXAMPLE: python -m scoop -n 8 /usr/local/bin/align_v1.py \
                         help="trim the N- or C-term overhanging ends given the condition that there is at least one other contig which \
                              extends at least 2 positions in the respective direction and that it conflicts with the N- or C-term of the \
                              currect contig. (default %(default)s)")
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 0.9')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.2')
     args=parser.parse_args()
     return args
 

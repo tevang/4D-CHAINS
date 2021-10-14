@@ -58,7 +58,7 @@ def cmdlineparse():
     parser.add_argument("-wC", dest="C_weight", required=False, type=float, default=1.0,
                         help="weight in (0.0, 1.0] to apply on aa type prediction from aliphatic C resonances. (default: %(default)s)",
                         metavar="<C weight>")
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 0.9')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.2')
     parser.add_argument("-probprod", dest="PROB_PRODUCT", required=False, action='store_true', default=False,
                         help="select the best C-H type assignment combination based on the product of probabilities of the individual C-H assignments. (default: %(default)s)")
     parser.add_argument("-probmodel", dest="PROBABILITY_MODEL", required=False, type=int, default=2,

@@ -118,7 +118,7 @@ calculate_assignment_statistics.py \\
     parser.add_argument("-fasta", dest="template_sequence_file", required=True, action='append',
                         help="protein sequences file in fasta format", metavar="<protein sequences file>")
     #parser.add_argument("-pdb", dest="PDB_FILE", required=True, help="pdb file", metavar="<pdb file>")
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 0.9')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.2')
     args=parser.parse_args()
     return args
 

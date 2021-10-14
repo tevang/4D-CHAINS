@@ -42,7 +42,7 @@ EXAMPLE1:
     parser.add_argument("-noesy", dest="NOESY_FILE", required=True,
                         help="4D NOESY (HCNOENH) file",
                         metavar="<4D NOESY input file>")
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.0')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.2')
     args=parser.parse_args()
     return args
 

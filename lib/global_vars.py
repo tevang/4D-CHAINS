@@ -25,11 +25,11 @@ aa3to1_dict = dict((c3,c1) for c3,c1 in zip(code3,code1))
 allowed_aa_atoms_dict = {
 "ALA" : ["HA", "HB", "CA", "CB", "N", "H"],
 "ARG" : ["HA", "HB2", "HB3", "HG2", "HG3", "HD2", "HD3", "CA", "CB", "CG", "CD", "N", "H"],
-"ASP" : ["HA", "HB2", "HB3", "CA", "CB", "N", "H"],
 "ASN" : ["HA", "HB2", "HB3", "CA", "CB", "N", "H"],
+"ASP" : ["HA", "HB2", "HB3", "CA", "CB", "N", "H"],
 "CYS" : ["HA", "HB2", "HB3", "CA", "CB", "N", "H"],
-"GLU" : ["HA", "HB2", "HB3", "HG2", "HG3", "CA", "CB", "CG", "N", "H"],
 "GLN" : ["HA", "HB2", "HB3", "HG2", "HG3", "CA", "CB", "CG", "N", "H"],
+"GLU" : ["HA", "HB2", "HB3", "HG2", "HG3", "CA", "CB", "CG", "N", "H"],
 "GLY" : ["HA2", "HA3", "CA", "N", "H"],
 "HIS" : ["HA", "HB2", "HB3", "CA", "CB", "N", "H"],
 "ILE" : ["HA", "HB", "HG12", "HG13", "HG2", "HD1", "CA", "CB", "CG1", "CG2", "CD1", "N", "H"],

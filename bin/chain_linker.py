@@ -43,7 +43,7 @@ def cmdlineparse():
                         metavar="<minimum mcutoff>")
     parser.add_argument("-patch", dest="EXTEND_N_TERMINALS", required=False, action='store_true', default=False,
                         help="place single TAAIG groups at the N-terminals if the respective connectivity exists. (USE WITH CAUTION!). (default: %(default)s)")
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 0.9')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s version 1.2')
     args=parser.parse_args()
     return args
 
