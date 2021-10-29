@@ -364,7 +364,7 @@ def generate_input_data():
     directives['4DNOESY_assignedNH'] = directives['4DNOESY'].replace(".list", "num.list")
     directives['4DNOESY_assignedrealNH'] = directives['4DNOESY'].replace(".list", "realnum.list")
 
-def multiround_doNHmapping(cycle=1,
+def multiround_doNHmapping(directives,
                            tolH='0.04',
                            tolC='0.4',
                            mcutoff='0.8',
@@ -377,12 +377,11 @@ def multiround_doNHmapping(cycle=1,
                            allaafile="",
                            first_length=6,
                            last_length=4,
+                           CPUs=8,
                            rst_file=None):
-    
-    global directives,args
-    
+
     # Convert number arguments to strings for convenience
-    args.CPUs = str(args.CPUs)
+    CPUs = str(CPUs)
     
     # 1st ROUND
     cur_round = '1'
@@ -392,7 +391,7 @@ def multiround_doNHmapping(cycle=1,
         restraints=""    
     pept_length = str(first_length)
     
-    run_commandline("python -m scoop -n "+args.CPUs+" "+CHAINS_BIN_DIR+"/"+EXE_4D_assignment + " \
+    run_commandline("python -m scoop -n "+CPUs+" "+CHAINS_BIN_DIR+"/"+EXE_4D_assignment + " \
     -hsqc "+directives['HSQC']+" \
     -tocsy "+directives['4DTOCSY']+" \
     -noesy "+directives['4DNOESY']+" \
@@ -409,7 +408,7 @@ def multiround_doNHmapping(cycle=1,
     -allaafile "+allaafile+" \
     -probprod -log -delpred -cgrpprob 2")
     
-    run_commandline("python -m scoop -n "+args.CPUs+" "+CHAINS_BIN_DIR+"/align_v1.py \
+    run_commandline("python -m scoop -n "+CPUs+" "+CHAINS_BIN_DIR+"/align_v1.py \
     -fasta "+directives['fasta']+" \
     -pseq peptides."+pept_length+"mers.fasta \
     -plist peptides."+pept_length+"mers.list "+restraints)
@@ -446,7 +445,7 @@ def multiround_doNHmapping(cycle=1,
         prev_pept_length = str(pept_length+1)
         pept_length = str(pept_length)
         
-        run_commandline("python -m scoop -n "+args.CPUs+" "+CHAINS_BIN_DIR+"/"+EXE_4D_assignment + " \
+        run_commandline("python -m scoop -n "+CPUs+" "+CHAINS_BIN_DIR+"/"+EXE_4D_assignment + " \
         -hsqc "+directives['HSQC']+" \
         -tocsy "+directives['4DTOCSY']+" \
         -noesy "+directives['4DNOESY']+" \
@@ -463,7 +462,7 @@ def multiround_doNHmapping(cycle=1,
         -probprod -log -delpred")
         
         # keep the restraint file the same
-        run_commandline("python -m scoop -n "+args.CPUs+" "+CHAINS_BIN_DIR+"/align_v1.py \
+        run_commandline("python -m scoop -n "+CPUs+" "+CHAINS_BIN_DIR+"/align_v1.py \
         -fasta "+directives['fasta']+" \
         -pseq peptides."+pept_length+"mers.fasta \
         -plist peptides."+pept_length+"mers.list \
@@ -585,20 +584,21 @@ if directives['doNHmapping'] == True:
             shutil.rmtree("cycle"+str(cycle))
         os.mkdir("cycle"+str(cycle))
         os.chdir("cycle"+str(cycle))
-        multiround_doNHmapping(cycle=cycle,
-                            tolH=directives['tolH'],
-                            tolC=directives['tolC'],
-                            mcutoff=directives['mcutoff'][cycle-1],
-                            mratio=directives['mratio'][cycle-1],
-                            zmcutoff=directives['zmcutoff'][cycle-1],
-                            zacutoff=directives['zacutoff'][cycle-1],
-                            poolconfile=directives['poolconfile'][cycle-1],
-                            allconfile=directives['allconfile'][cycle-1],
-                            poolaafile=directives['poolaafile'][cycle-1],
-                            allaafile=directives['allaafile'][cycle-1],
-                            first_length=directives['first_length'][cycle-1],
-                            last_length=directives['last_length'][cycle-1],
-                            rst_file=directives['rst_file'][cycle-1])
+        multiround_doNHmapping(directives,
+                               tolH=directives['tolH'],
+                               tolC=directives['tolC'],
+                               mcutoff=directives['mcutoff'][cycle-1],
+                               mratio=directives['mratio'][cycle-1],
+                               zmcutoff=directives['zmcutoff'][cycle-1],
+                               zacutoff=directives['zacutoff'][cycle-1],
+                               poolconfile=directives['poolconfile'][cycle-1],
+                               allconfile=directives['allconfile'][cycle-1],
+                               poolaafile=directives['poolaafile'][cycle-1],
+                               allaafile=directives['allaafile'][cycle-1],
+                               first_length=directives['first_length'][cycle-1],
+                               last_length=directives['last_length'][cycle-1],
+                               CPUs=args.CPUs,
+                               rst_file=directives['rst_file'][cycle-1])
         
         os.chdir("../")
     
